@@ -50,3 +50,26 @@ time ~/src/mx/mx_count.py bib.xml.full/*
 10000   bib.xml.full/bib.002.1.xml.gz
 ...
 ```
+
+On laptop:
+
+```
+simeon@RottenApple ld4lmarc>time ./mx_count.py ~/bib.xml.full/bib.001.*.gz
+10000   /Users/simeon/bib.xml.full/bib.001.1.xml.gz
+10000   /Users/simeon/bib.xml.full/bib.001.2.xml.gz
+10000   /Users/simeon/bib.xml.full/bib.001.3.xml.gz
+10000   /Users/simeon/bib.xml.full/bib.001.4.xml.gz
+9964    /Users/simeon/bib.xml.full/bib.001.5.xml.gz
+49964   TOTAL
+
+real	1m6.900s
+user	1m5.213s
+sys	0m0.168s
+simeon@RottenApple ld4lmarc>dc
+3k 7000000 49964 / 66.9 * 60 / p
+156.211
+60 / p
+2.603
+```
+
+so that would be 2.6h to parse all of thr 7M records.
