@@ -1,5 +1,8 @@
 __pycache__
 *~
 
+#Log files
+mx_grep_oclc.log
+
 #Our data dir
 bib.xml.full
