@@ -49,9 +49,14 @@ time ~/src/mx/mx_count.py bib.xml.full/*
 9964    bib.xml.full/bib.001.5.xml.gz
 10000   bib.xml.full/bib.002.1.xml.gz
 ...
-```
+10000   bib.xml.full/bib.173.2.xml.gz
+4833    bib.xml.full/bib.173.3.xml.gz
+7068205 TOTAL
+13441.75user 9.61system 3:47:16elapsed 98%CPU (0avgtext+0avgdata 72288maxresiden
+t)k
+4542072inputs+56outputs (0major+6024minor)pagefaults 0swaps```
 
-On laptop:
+so 3h47 on VM. A bit faster on laptop:
 
 ```
 simeon@RottenApple ld4lmarc>time ./mx_count.py ~/bib.xml.full/bib.001.*.gz
@@ -72,4 +77,4 @@ simeon@RottenApple ld4lmarc>dc
 2.603
 ```
 
-so that would be 2.6h to parse all of thr 7M records.
+so that would be 2.6h to parse all of the 7M records.
