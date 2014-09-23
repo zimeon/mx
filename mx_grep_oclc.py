@@ -13,6 +13,7 @@ import pymarc
 import re
 import optparse
 import logging
+import datetime
 
 class mx_grepper:
     def __init__(self, show_dupes=False):
@@ -25,6 +26,7 @@ class mx_grepper:
         self.fields_bad = 0
         self.fields_duped = 0
         # Use for parsing each record
+        self.bibid = 'unknown_bibid'
 
     def grep(self,record): 
         self.records_seen += 1
@@ -47,6 +49,8 @@ class mx_grepper:
         'OCM' prefixes (what do they mean?). Usually these are duplicate
         entries.
 
+        Any leading or trailing whitespace is silently ignored.
+
         What does it mean to have genuinely different numbers? e.g.
         http://newcatalog.library.cornell.edu/catalog/302435
         which has both OCLC nums 3615963 and 9860311 
@@ -59,7 +63,8 @@ class mx_grepper:
         for f035 in record.get_fields('035'):
             ref = f035['a']
             if (ref is not None): 
-                #print "#%s %s" % (self.bibid,ref)
+                # strip leading or trailing whitespace
+                ref = ref.lstrip().rstrip()
                 m = re.match(r'\(OCoLC\)(.+)$',ref)
                 # has (OCoLC) prefix...
                 if (m):
@@ -82,14 +87,20 @@ class mx_grepper:
 
 # Options and arguments
 __version__ = '0.0.1'
+LOGFILE = 'mx_grep_oclc.log'
 p = optparse.OptionParser(description='MARCXML Record Grepper -- currently just deals with the special case of looking for OCLC refs',
                           usage='usage: %prog [[opts]] [file1] .. [fileN]',
                           version='%prog '+__version__ )
+p.add_option('--logfile', action='store', default=LOGFILE,
+             help="Log file name (default %s)" % (LOGFILE))
 p.add_option('--dupes', action='store_true',
-              help="issue warnings for duplicate data")
+             help="issue warnings for duplicate data")
 p.add_option('--verbose', '-v', action='store_true',
-              help="verbose, show additional informational messages")
+             help="verbose, show additional informational messages")
 (opt, args) = p.parse_args()
+
+logging.basicConfig(filename=opt.logfile)
+logging.warning("STARTED at %s" % (datetime.datetime.now()))
 
 # Loop over all files specified looking at each records
 files = 0
@@ -112,3 +123,5 @@ if (len(args)>1):
     print "# %d files" % files
 print "# %d records seen, %d matched, %d field matches" % (mg.records_seen,mg.records_matched,mg.fields_matched)
 print "# %d duplicate entries, %d bad entries" % (mg.fields_duped,mg.fields_bad)
+
+logging.warning("FINISHED at %s" % (datetime.datetime.now()))
