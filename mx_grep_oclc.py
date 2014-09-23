@@ -19,28 +19,56 @@ class mx_grepper:
         self.records_seen = 0
         self.records_matched = 0
         self.fields_matched = 0
+        self.fields_bad = 0
+        self.fields_duped = 0
+        # Use for parsing each record
 
     def grep(self,record): 
         self.records_seen += 1
         # Everything should have local bibid as 001
-        bibid = 'unknown_bibid'
+        self.bibid = 'unknown_bibid'
         try:
-            bibid=record['001'].value()
-            # Now look for OCLC nums
-            f035=record['035']
-            if (f035):
-                oclcnums = []
-                for ref in f035.get_subfields('a'):
-                    #print "%s %s" % (bibid,ref)
-                    m = re.match(r'\(OCoLC\)(\d+)$',ref)
-                    if (m):
-                        oclcnums.append(m.group(1))
-                        self.fields_matched += 1
-                if (len(oclcnums)>0):
-                    print "%s\t%s" % (bibid,' '.join(oclcnums))
-                    self.records_matched += 1
+            self.bibid=record['001'].value()
+            oclcnums = self.get_oclcnums(record)
+            if (len(oclcnums)>0):
+                print "%s\t%s" % (self.bibid,' '.join(oclcnums))
+                self.records_matched += 1
         except Exception as e:
-            logging.warning("Bad record '%s': %s" % (bibid,str(e)))
+            logging.warning("Bad record '%s': %s" % (self.bibid,str(e)))
+
+    def get_oclcnums(self,record):
+        """Look for one or more OCLC identifiers for record
+
+        OCLC numbers are recorded in 035$a. The number itself should
+        be a decimal number. In some cases there are 'ocm' or 'OCM'
+        prefixes (what do they mean?). Usually these are duplicate
+        entries.
+
+        What does it mean to have genuinely different numbers? e.g.
+        #4958095 ocm35304571 96047844
+        """
+        oclcnums = {}
+        for f035 in record.get_fields('035'):
+            ref = f035['a']
+            if (ref is not None): 
+                #print "#%s %s" % (self.bibid,ref)
+                m = re.match(r'\(OCoLC\)(.+)$',ref)
+                # has (OCoLC) prefix...
+                if (m):
+                    self.fields_matched += 1
+                    entry = m.group(1)
+                    m2 = re.match(r'^(ocm|OCM)?(\d+)$',entry)
+                    if (m2):
+                        ref = m2.group(2)
+                        if (ref in oclcnums):
+                            # dupe
+                            self.fields_duped += 1
+                        else:
+                            oclcnums[ref] = 1
+                    else:
+                        self.fields_bad += 1
+                        logging.warning("Bad 035$a OCLC entry in '%s': '%s'",self.bibid,entry)
+        return sorted(oclcnums.keys())
 
 # Options and arguments
 __version__ = '0.0.1'
@@ -71,3 +99,4 @@ for arg in args:
 if (len(args)>1):
     print "# %d files" % files
 print "# %d records seen, %d matched, %d field matches" % (mg.records_seen,mg.records_matched,mg.fields_matched)
+print "# %d duplicate entries, %d bad entries" % (mg.fields_duped,mg.fields_bad)
