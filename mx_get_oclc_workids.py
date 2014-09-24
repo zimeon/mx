@@ -37,7 +37,7 @@ class bibid_oclcnums(object):
                     logging.info("[%d] fewer than 2 elements, ignoring" % (n))
                 else:
                     if (len(d)>2):
-                        logging.info("[%d] ignoring extra %d elements for bibid %d" % (n,(len(d)-2),d[0]))
+                        logging.info("[%d] ignoring extra %d elements for bibid %s" % (n,(len(d)-2),d[0]))
                     bibid = d[0]
                     oclcnum = d[1]
                     self.bibids[oclcnum]=bibid
