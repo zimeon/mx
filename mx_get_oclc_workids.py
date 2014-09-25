@@ -12,12 +12,18 @@ import logging
 
 class bibid_oclcnums(object):
 
-    def __init__(self,file=None):
+    def __init__(self,file=None,output_file=None,store_works=False):
         self.bibids={}
-        self.works={}
+        self.store_works=store_works
+        if (store_works):
+            self.works={}
+        # Set up output file
+        self.ofh = gzip.open(output_file,'w')
+        self.ofh.write("#workid bibid\n")
+        # Read data if specified
         if (file):
             self.read(file)
-
+            
     def read(self,file):
         """Read in bibid to oclcnums data
 
@@ -42,16 +48,21 @@ class bibid_oclcnums(object):
                     oclcnum = d[1]
                     self.bibids[oclcnum]=bibid
         fh.close()
-        logging.warning("read %d lines from %s, got %d entries" % (n,file,len(self.bibids)))
+        logging.warning("read %d lines from %s" % (n,file))
 
     def add_work(self,bibid,workid):
         """Add record of bibid being example of workid"""
-        if (workid in self.works):
-            # Add to list, already have one entry
-            self.works[workid].append(bibid)
+        if (self.store_works):
+            if (workid in self.works):
+                # Add to list, already have one entry
+                self.works[workid].append(bibid)
+            else:
+                # First bibid for this work
+                self.works[workid]=[bibid]
         else:
-            # First bibid for this work
-            self.works[workid]=[bibid]
+            # Write out matches as we find them to avoid
+            # building everything in memory
+            self.ofh.write("%s %s\n" % (workid,bibid))
 
     def write_works_data(self,file):
         """Write out OCLC workid to bibid mappings
@@ -82,12 +93,13 @@ p.add_option('--verbose', '-v', action='store_true',
 if (len(args)!=3):
     p.print_help()
     exit(1)
+(bibid_to_oclcnums_file,oclc_concordance_file,output_file)=args
 
 if (opt.verbose):
     logging.basicConfig(level=logging.INFO)
 
 # Read bibid--oclcnum data into memory
-bo = bibid_oclcnums(args[0])
+bo = bibid_oclcnums(bibid_to_oclcnums_file,output_file)
 print "Have %d bibid to oclcnum mappings" % (len(bo.bibids.keys()))
 
 # Now open concordance and work through it looking for matches
@@ -101,14 +113,14 @@ print "Have %d bibid to oclcnum mappings" % (len(bo.bibids.keys()))
 #
 # Look for matches in 1st or 2nd columns, get word identifier from
 # 3rd column.
-fh = gzip.open(args[1],'r')
+fh = gzip.open(oclc_concordance_file,'r')
 n = 0
 num1_matches = 0
 num2_matches = 0
 for line in fh:
     n += 1
     if (n%1000000 == 0):
-        logging.warning("read %d lines from %s...." % (n,args[1]))
+        logging.warning("read %d lines from %s...." % (n,oclc_concordance_file))
     (oclcnum1,oclcnum2,workid) = line.split()
     if (oclcnum1 in bo.bibids):
         bo.add_work(bo.bibids[oclcnum1],workid)
@@ -117,7 +129,9 @@ for line in fh:
         bo.add_work(bo.bibids[oclcnum2],workid)
         num2_matches += 1
 fh.close()
-logging.warning("read %d lines from %s. %d matches in col1, %d in col2" % (n,args[1],num1_matches,num2_matches))
+logging.warning("read %d lines from %s. %d matches in col1, %d in col2" % (n,oclc_concordance_file,num1_matches,num2_matches))
 
-# Write out works data...
-bo.write_works_data(args[2])
+## Write out works data...
+#bo.write_works_data(args[2])
+#writing alread done on single entry basis
+bo.ofh.close();
