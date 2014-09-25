@@ -20,6 +20,9 @@ class bibid_oclcnums(object):
         # Set up output file
         self.ofh = gzip.open(output_file,'w')
         self.ofh.write("#workid bibid\n")
+        self.ofh.write("#prefix workid with http://worldcat.org/entity/work/id/ to get URI\n")
+        self.ofh.write("#prefix bibids with http://newcatalog.library.cornell.edu/catalog/ to get URI\n")
+        self.ofh.write("#we expect many duplicate lines due to look up based on 001 and 019 OCLC data\n")
         # Read data if specified
         if (file):
             self.read(file)
