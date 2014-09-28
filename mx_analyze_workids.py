@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 #
-# Look for OCLC Work ids for our bibids base on oclcnum data
+# Look at workid--bibid pairs and generate a set of
+# workid--bibids sets. Look for bibids that are mapped
+# to more than one workid.
 #
-import sys
+# Simeon Warner - 2014-09-25
+#
 import gzip
-import pymarc
 import re
 import optparse
 import logging
-
+import datetime
 
 class workids(object):
 
@@ -22,7 +24,8 @@ class workids(object):
     def read(self,file):
         """Read in workid to bibid pairs into combined workids hash
 
-        Ignores lines starting # and blank lines
+        Ignores lines starting # and blank lines. Converts all values
+        to integers.
         """
         fh = gzip.open(file,'r')
         n = 0
@@ -37,7 +40,15 @@ class workids(object):
                     logging.info("[%d] fewer than 2 elements, ignoring" % (n))
                 elif (len(d)>2):
                     logging.info("[%d] more than two (%d) elements for bibid %s, ignoring" % (n,(len(d)-2),d[0]))
-                (workid,bibid) = d
+                workid = None
+                bibid = None
+                # sanity check
+                try:
+                    workid = int(d[0])
+                    bibid = int(d[1])
+                except Exception as e:
+                    logging.warning("[%d] bad line '%s', ignored" % (n,line))
+                    continue
                 if (workid in self.workids):
                     self.workids[workid].append(bibid)
                 else:
@@ -48,7 +59,7 @@ class workids(object):
                     # case of same bibid with different workids
                     if (workid not in self.bibids[bibid]):
                         self.bibids[bibid].append(workid)
-                        logging.warning("Dupe: bibid %s attached to self.workids [%s]" % (bibid,",".join(self.bibids[bibid])))
+                        logging.warning("Dupe: bibid %d attached to multiple workids [%s]" % (bibid,",".join([str(x) for x in self.bibids[bibid]])))
                 else:
                     self.bibids[bibid]=[workid]
         fh.close()
@@ -65,17 +76,36 @@ class workids(object):
         fh.write("#prefix workid with http://worldcat.org/entity/work/id/ to get URI\n")
         fh.write("#prefix bibids with http://newcatalog.library.cornell.edu/catalog/ to get URI\n")
         n = 0
-        for workid in sorted(self.works):
+        for workid in sorted(self.workids.keys(),key=int):
             n += 1
-            fh.write("%s %s\n" % (workid," ".join(self.works[workid])))
+            fh.write("%d %s\n" % (workid," ".join([str(x) for x in self.workids[workid]])))
         fh.close()
-        logging.warning("written %d lines to %s" % (n,file))
+        logging.warning("written %d workid lines to %s" % (n,file))
+
+    def stats(self):
+        """Simple descriptive stats for the workid associations
+        
+        Output via logger
+        """
+        counts={}
+        for workid in self.workids:
+            n=len(self.workids[workid])
+            if (n in counts):
+                counts[n] += 1
+            else:
+                counts[n] = 1
+        # output histogram data
+        logging.warning("histogram: #num_bibids workids_with_num_bibids")
+        for n in sorted(counts):
+            logging.warning("histogram: %d %d" % (n,counts[n]))
+
 
 # Options and arguments
-__version__ = '0.0.1'
+LOGFILE = 'mx_analyze_workids.log'
 p = optparse.OptionParser(description='Combine and analyze workid to bibid pairs',
-                          usage='usage: %prog [workid_bibid_pairs.gz] [works_out.gz',
-                          version='%prog '+__version__ )
+                          usage='usage: %prog [workid_bibid_pairs_in.gz] [workid_bibids_out.gz]')
+p.add_option('--logfile', action='store', default=LOGFILE,
+             help="Log file name (default %s)" % (LOGFILE))
 p.add_option('--verbose', '-v', action='store_true',
               help="verbose, show additional informational messages")
 (opt, args) = p.parse_args()
@@ -85,12 +115,16 @@ if (len(args)!=2):
     exit(1)
 (workid_bibid_pairs,workid_bibids)=args
 
-if (opt.verbose):
-    logging.basicConfig(level=logging.INFO)
+level = logging.INFO if (opt.verbose) else logging.WARNING
+logging.basicConfig(filename=opt.logfile, level=level)
+logging.warning("STARTED at %s" % (datetime.datetime.now()))
 
 # Read bibid--oclcnum data into memory
 w = workids(workid_bibid_pairs)
-print "Have %d bibid to oclcnum mappings" % (len(w.bibids.keys()))
-## Write out combined works data...
-w.write_works_data(workid_bibids)
+logging.info("Have %d workids, %d bibids" % (len(w.workids),len(w.bibids)))
 
+# Write out combined works data and stats
+w.write_works_data(workid_bibids)
+w.stats()
+
+logging.warning("FINISHED at %s" % (datetime.datetime.now()))
