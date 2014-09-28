@@ -16,14 +16,16 @@ import logging
 import datetime
 
 class mx_grepper:
-    def __init__(self, show_dupes=False):
+    def __init__(self, dupeslog=None):
         # Options
-        self.show_dupes=show_dupes
+        self.dupeslog=dupeslog
         # Stats collected over run
         self.records_seen = 0
         self.records_matched = 0
+        self.records_multi = 0
         self.fields_matched = 0
         self.fields_bad = 0
+        self.fields_esuffix = 0
         self.fields_duped = 0
         # Use for parsing each record
         self.bibid = 'unknown_bibid'
@@ -36,7 +38,7 @@ class mx_grepper:
             self.bibid=record['001'].value()
             oclcnums = self.get_oclcnums(record)
             if (len(oclcnums)>0):
-                print "%s\t%s" % (self.bibid,' '.join(oclcnums))
+                print "%s\t%s" % (self.bibid,' '.join([str(x) for x in oclcnums]))
                 self.records_matched += 1
         except Exception as e:
             logging.warning("Bad record '%s': %s" % (self.bibid,str(e)))
@@ -59,7 +61,7 @@ class mx_grepper:
         are error cases. e.g.
         #4958095 'ocm35304571 96047844'
         """
-        oclcnums = {}
+        oclcnums = set()
         for f035 in record.get_fields('035'):
             ref = f035['a']
             if (ref is not None): 
@@ -72,29 +74,32 @@ class mx_grepper:
                     entry = m.group(1)
                     m2 = re.match(r'^(ocm|ocn|OCM)?(\d+)$',entry)
                     if (m2):
-                        ref = m2.group(2)
+                        ref = int(m2.group(2))
                         if (ref in oclcnums):
                             # dupe
                             self.fields_duped += 1
-                            if (self.show_dupes):
-                                logging.warning("[%s] Dupe 035$a OCLC value: '%s'",self.bibid,ref) 
+                            if (self.dupeslog):
+                                self.dupeslog.warning("Bibid %s has dupe 035$a OCLC value: '%d'",self.bibid,ref) 
                         else:
-                            oclcnums[ref] = 1
+                            oclcnums.add(ref)
+                    elif (re.match(r'(ocm|ocn|OCM)?(\d+)e$',entry)):
+                        self.fields_esuffix += 1
+                        logging.warning("[%s] e-suffixed 035$a OCLC entry: '%s'",self.bibid,entry)
                     else:
                         self.fields_bad += 1
                         logging.warning("[%s] Bad 035$a OCLC entry: '%s'",self.bibid,entry)
-        return sorted(oclcnums.keys())
+        if (len(oclcnums)>1):
+            self.records_multi += 1
+        return sorted(oclcnums)
 
 # Options and arguments
-__version__ = '0.0.1'
 LOGFILE = 'mx_grep_oclc.log'
 p = optparse.OptionParser(description='MARCXML Record Grepper -- currently just deals with the special case of looking for OCLC refs',
-                          usage='usage: %prog [[opts]] [file1] .. [fileN]',
-                          version='%prog '+__version__ )
+                          usage='usage: %prog [[opts]] [file1] .. [fileN]')
 p.add_option('--logfile', action='store', default=LOGFILE,
              help="Log file name (default %s)" % (LOGFILE))
-p.add_option('--dupes', action='store_true',
-             help="issue warnings for duplicate data")
+p.add_option('--dupeslog', action='store', default=None,
+             help="Log file to write duplicate warnings")
 p.add_option('--verbose', '-v', action='store_true',
              help="verbose, show additional informational messages")
 (opt, args) = p.parse_args()
@@ -102,17 +107,26 @@ p.add_option('--verbose', '-v', action='store_true',
 logging.basicConfig(filename=opt.logfile)
 logging.warning("STARTED at %s" % (datetime.datetime.now()))
 
+dupeslog = None
+if (opt.dupeslog):
+    dupeslog = logging.getLogger(name='dupeslog')
+    f = logging.FileHandler(filename=opt.dupeslog,mode='w')
+    dupeslog.addHandler(f)
+    dupeslog.warning("#DUPES LOG STARTED at %s" % (datetime.datetime.now()))
+
 # Loop over all files specified looking at each records
 files = 0
-mg = mx_grepper(show_dupes=opt.dupes)
+mg = mx_grepper(dupeslog=dupeslog)
 print "#bibid oclcnum[s]"
 for arg in args:
     fh = 0
     if (re.search(r'\.gz$',arg)):
+        logging.warning("#Reading %s as gzipped MARCXML" % (arg))
         if (opt.verbose):
             print "#Reading %s as gzipped MARCXML" % (arg)
         fh = gzip.open(arg,'rb')
     else:
+        logging.warning("#Reading %s as MARCXML" % (arg))
         if (opt.verbose):
             print "#Reading %s as MARCXML" % (arg)
         fh = open(arg,'rb')
@@ -121,7 +135,7 @@ for arg in args:
     pymarc.map_xml(mg.grep, fh)
 if (len(args)>1):
     print "# %d files" % files
-print "# %d records seen, %d matched, %d field matches" % (mg.records_seen,mg.records_matched,mg.fields_matched)
-print "# %d duplicate entries, %d bad entries" % (mg.fields_duped,mg.fields_bad)
+print "# %d records seen, %d matched, %d multi-valued" % (mg.records_seen,mg.records_matched,mg.records_multi)
+print "# %d field matches, %d duplicate entries, %d bad entries, %d e-suffixed (ignored)" % (mg.fields_matched,mg.fields_duped,mg.fields_bad,mg.fields_esuffix)
 
 logging.warning("FINISHED at %s" % (datetime.datetime.now()))
