@@ -4,15 +4,17 @@
 #
 import sys
 import gzip
-import pymarc
 import re
 import optparse
 import logging
-
+import datetime
 
 class bibid_oclcnums(object):
 
-    def __init__(self,file=None,output_file=None,store_works=False):
+    def __init__(self,file=None,output_file=None,store_works=False,dupeslog=None):
+        # Options
+        self.dupeslog=dupeslog
+        #
         self.bibids={}
         self.store_works=store_works
         if (store_works):
@@ -36,6 +38,7 @@ class bibid_oclcnums(object):
         fh = gzip.open(file,'r')
         n = 0
         for line in fh:
+            line = line.rstrip()
             n += 1
             if (re.match(r'\s*#',line) or not re.search(r'\S',line)):
                 # ignore comment or blank
@@ -46,9 +49,9 @@ class bibid_oclcnums(object):
                     logging.info("[%d] fewer than 2 elements, ignoring" % (n))
                 else:
                     if (len(d)>2):
-                        logging.info("[%d] ignoring extra %d elements for bibid %s" % (n,(len(d)-2),d[0]))
-                    bibid = d[0]
-                    oclcnum = d[1]
+                        logging.info("[%d] ignoring extra %d elements for bibid %s, line is '%s'" % (n,(len(d)-2),d[0],line))
+                    bibid = int(d[0])
+                    oclcnum = int(d[1])
                     self.bibids[oclcnum]=bibid
         fh.close()
         logging.warning("read %d lines from %s" % (n,file))
@@ -65,7 +68,7 @@ class bibid_oclcnums(object):
         else:
             # Write out matches as we find them to avoid
             # building everything in memory
-            self.ofh.write("%s %s\n" % (workid,bibid))
+            self.ofh.write("%d %d\n" % (workid,bibid))
 
     def write_works_data(self,file):
         """Write out OCLC workid to bibid mappings
@@ -78,32 +81,41 @@ class bibid_oclcnums(object):
         n = 0
         for workid in sorted(self.works):
             n += 1
-            fh.write("%s %s\n" % (workid," ".join(self.works[workid])))
+            fh.write("%d %s\n" % (workid," ".join([str(x) for x in self.works[workid]])))
         fh.close()
         logging.warning("written %d lines to %s" % (n,file))
 
 # Options and arguments
-__version__ = '0.0.1'
+LOGFILE = "mx_get_oclc_workids.log"
 p = optparse.OptionParser(description='Find OCLC workids for bibids given bibid-oclcnum and oclcnum-workid data',
-                          usage='usage: %prog [bibid_oclcnums.gz] [oclc_concordance.gz] [works_out.gz',
-                          version='%prog '+__version__ )
-p.add_option('--dupes', action='store_true',
-              help="issue warnings for duplicate data")
+                          usage='usage: %prog [bibid_to_oclcnums.gz] [oclc_concordance.gz] [works_out.gz]')
+p.add_option('--logfile', action='store', default=LOGFILE,
+             help="Log file name (default %s)" % (LOGFILE))
+p.add_option('--dupeslog', action='store', default=None,
+             help="Write log for duplicate data")
 p.add_option('--verbose', '-v', action='store_true',
-              help="verbose, show additional informational messages")
+             help="verbose, show additional informational messages")
 (opt, args) = p.parse_args()
 
 if (len(args)!=3):
-    p.print_help()
+    p.print_help("Must have 3 arguments")
     exit(1)
 (bibid_to_oclcnums_file,oclc_concordance_file,output_file)=args
 
-if (opt.verbose):
-    logging.basicConfig(level=logging.INFO)
+level = (logging.INFO if opt.verbose else logging.WARNING)
+logging.basicConfig(filename=opt.logfile,level=level)
+logging.warning("STARTED at %s" % (datetime.datetime.now()))
+
+dupeslog = None
+if (opt.dupeslog):
+    dupeslog = logging.getLogger(name='dupeslog')
+    f = logging.FileHandler(filename=opt.dupeslog,mode='w')
+    dupeslog.addHandler(f)
+    dupeslog.warning("#DUPES LOG STARTED at %s" % (datetime.datetime.now()))
 
 # Read bibid--oclcnum data into memory
-bo = bibid_oclcnums(bibid_to_oclcnums_file,output_file)
-print "Have %d bibid to oclcnum mappings" % (len(bo.bibids.keys()))
+bo = bibid_oclcnums(file=bibid_to_oclcnums_file,output_file=output_file,dupeslog=dupeslog)
+logging.warning("Have %d bibid to oclcnum mappings" % (len(bo.bibids.keys())))
 
 # Now open concordance and work through it looking for matches
 #
@@ -120,21 +132,33 @@ fh = gzip.open(oclc_concordance_file,'r')
 n = 0
 num1_matches = 0
 num2_matches = 0
+num_none_workid = 0
 for line in fh:
     n += 1
     if (n%1000000 == 0):
         logging.warning("read %d lines from %s...." % (n,oclc_concordance_file))
-    (oclcnum1,oclcnum2,workid) = line.split()
-    if (oclcnum1 in bo.bibids):
-        bo.add_work(bo.bibids[oclcnum1],workid)
-        num1_matches += 1
-    elif (oclcnum2 in bo.bibids):
-        bo.add_work(bo.bibids[oclcnum2],workid)
-        num2_matches += 1
+    line = line.rstrip()
+    try:
+        (oclcnum1,oclcnum2,workid) = line.split()
+        if (workid=='NONE'):
+            num_none_workid += 1
+            continue
+        oclcnum1=int(oclcnum1)
+        oclcnum2=int(oclcnum2)
+        workid=int(workid)
+        if (oclcnum1 in bo.bibids):
+            bo.add_work(bo.bibids[oclcnum1],workid)
+            num1_matches += 1
+        elif (oclcnum2 in bo.bibids):
+            bo.add_work(bo.bibids[oclcnum2],workid)
+            num2_matches += 1
+    except Exception as e:
+        logging.warning("[line %d] BAD LINE '%s': %s" % (n,line,str(e)))
 fh.close()
 logging.warning("read %d lines from %s. %d matches in col1, %d in col2" % (n,oclc_concordance_file,num1_matches,num2_matches))
-
+logging.warning("ignored %d lines that have workid=NONE" % (num_none_workid))
 ## Write out works data...
 #bo.write_works_data(args[2])
 #writing alread done on single entry basis
 bo.ofh.close();
+logging.warning("FINISHED at %s" % (datetime.datetime.now()))
