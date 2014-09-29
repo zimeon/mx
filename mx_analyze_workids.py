@@ -12,6 +12,9 @@ import optparse
 import logging
 import datetime
 
+WORKID_PREFIX = "http://worldcat.org/entity/work/id/"
+BIBID_PREFIX = "http://newcatalog.library.cornell.edu/catalog/"
+
 class workids(object):
 
     def __init__(self,file=None):
@@ -73,8 +76,8 @@ class workids(object):
         """
         fh = gzip.open(file,'w')
         fh.write("#workid bibids\n")
-        fh.write("#prefix workid with http://worldcat.org/entity/work/id/ to get URI\n")
-        fh.write("#prefix bibids with http://newcatalog.library.cornell.edu/catalog/ to get URI\n")
+        fh.write("#prefix workid with %s to get URI\n" % (WORKID_PREFIX))
+        fh.write("#prefix bibids with %s to get URI\n" % (BIBID_PREFIX))
         n = 0
         for workid in sorted(self.workids.keys(),key=int):
             n += 1
@@ -88,16 +91,21 @@ class workids(object):
         Output via logger
         """
         counts={}
+        example={}
         for workid in self.workids:
             n=len(self.workids[workid])
             if (n in counts):
                 counts[n] += 1
             else:
                 counts[n] = 1
+                # Add first case as example, add first 3 (at most) bibid links
+                biblinks = ["%s%d" % (BIBID_PREFIX,x) for x in self.workids[workid][0:2]]
+                example[n] = "%s%d -> %s" % (WORKID_PREFIX,workid,' '.join(biblinks)) 
         # output histogram data
-        logging.warning("histogram: #num_bibids workids_with_num_bibids")
+        logging.warning("histogram: #num_bibids workids_with_num_bibids (example)")
         for n in sorted(counts):
             logging.warning("histogram: %d %d" % (n,counts[n]))
+            logging.warning("histogram_eg: %s" % (example[n]))
 
 
 # Options and arguments

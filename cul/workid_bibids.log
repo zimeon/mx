@@ -1,1 +1,356 @@
-Have 6721019 bibid to oclcnum mappings
+WARNING:root:STARTED at 2014-09-29 11:52:29.993844
+WARNING:root:Dupe: bibid 962917 attached to multiple workids [43379880,1893235437]
+WARNING:root:read 9631672 lines from cul/workid_bibid_pairs.dat.gz, have 5887714 works
+WARNING:root:written 5887714 workid lines to cul/workid_bibids.dat.gz
+WARNING:root:histogram: #num_bibids workids_with_num_bibids (example)
+WARNING:root:histogram: 1 4026154
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/33554432 -> http://newcatalog.library.cornell.edu/catalog/3598887
+WARNING:root:histogram: 2 1100111
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1174405121 -> http://newcatalog.library.cornell.edu/catalog/7957652 http://newcatalog.library.cornell.edu/catalog/7996333
+WARNING:root:histogram: 3 399135
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/838860806 -> http://newcatalog.library.cornell.edu/catalog/4449240 http://newcatalog.library.cornell.edu/catalog/4449240
+WARNING:root:histogram: 4 148339
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1862271073 -> http://newcatalog.library.cornell.edu/catalog/5225981 http://newcatalog.library.cornell.edu/catalog/5225981
+WARNING:root:histogram: 5 82466
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/503316581 -> http://newcatalog.library.cornell.edu/catalog/5301439 http://newcatalog.library.cornell.edu/catalog/5301439
+WARNING:root:histogram: 6 41394
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/408245623 -> http://newcatalog.library.cornell.edu/catalog/4179396 http://newcatalog.library.cornell.edu/catalog/5304829
+WARNING:root:histogram: 7 24118
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/796574908 -> http://newcatalog.library.cornell.edu/catalog/5190259 http://newcatalog.library.cornell.edu/catalog/5190259
+WARNING:root:histogram: 8 17273
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/114644353 -> http://newcatalog.library.cornell.edu/catalog/6998180 http://newcatalog.library.cornell.edu/catalog/6998180
+WARNING:root:histogram: 9 12200
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/905970071 -> http://newcatalog.library.cornell.edu/catalog/6976947 http://newcatalog.library.cornell.edu/catalog/6976947
+WARNING:root:histogram: 10 9801
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/16778873 -> http://newcatalog.library.cornell.edu/catalog/5239484 http://newcatalog.library.cornell.edu/catalog/5239484
+WARNING:root:histogram: 11 6953
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/905969766 -> http://newcatalog.library.cornell.edu/catalog/7017969 http://newcatalog.library.cornell.edu/catalog/7017969
+WARNING:root:histogram: 12 4989
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/905969878 -> http://newcatalog.library.cornell.edu/catalog/7003413 http://newcatalog.library.cornell.edu/catalog/7003413
+WARNING:root:histogram: 13 3421
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/913 -> http://newcatalog.library.cornell.edu/catalog/5271024 http://newcatalog.library.cornell.edu/catalog/5561622
+WARNING:root:histogram: 14 2282
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1173741806 -> http://newcatalog.library.cornell.edu/catalog/360758 http://newcatalog.library.cornell.edu/catalog/5714970
+WARNING:root:histogram: 15 1667
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3463 -> http://newcatalog.library.cornell.edu/catalog/3820556 http://newcatalog.library.cornell.edu/catalog/3820561
+WARNING:root:histogram: 16 1200
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3435 -> http://newcatalog.library.cornell.edu/catalog/7941274 http://newcatalog.library.cornell.edu/catalog/1436894
+WARNING:root:histogram: 17 959
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3392 -> http://newcatalog.library.cornell.edu/catalog/1436278 http://newcatalog.library.cornell.edu/catalog/4001405
+WARNING:root:histogram: 18 731
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3461 -> http://newcatalog.library.cornell.edu/catalog/1347205 http://newcatalog.library.cornell.edu/catalog/981960
+WARNING:root:histogram: 19 539
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3432 -> http://newcatalog.library.cornell.edu/catalog/1432805 http://newcatalog.library.cornell.edu/catalog/3202946
+WARNING:root:histogram: 20 467
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3540 -> http://newcatalog.library.cornell.edu/catalog/1400598 http://newcatalog.library.cornell.edu/catalog/2182433
+WARNING:root:histogram: 21 330
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/4733 -> http://newcatalog.library.cornell.edu/catalog/1614257 http://newcatalog.library.cornell.edu/catalog/48122
+WARNING:root:histogram: 22 301
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3480 -> http://newcatalog.library.cornell.edu/catalog/2848251 http://newcatalog.library.cornell.edu/catalog/8386610
+WARNING:root:histogram: 23 255
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3533 -> http://newcatalog.library.cornell.edu/catalog/4985434 http://newcatalog.library.cornell.edu/catalog/1669967
+WARNING:root:histogram: 24 250
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3415 -> http://newcatalog.library.cornell.edu/catalog/1438195 http://newcatalog.library.cornell.edu/catalog/1422095
+WARNING:root:histogram: 25 209
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1040 -> http://newcatalog.library.cornell.edu/catalog/972997 http://newcatalog.library.cornell.edu/catalog/972997
+WARNING:root:histogram: 26 171
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3488 -> http://newcatalog.library.cornell.edu/catalog/5538806 http://newcatalog.library.cornell.edu/catalog/1426405
+WARNING:root:histogram: 27 153
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/34417 -> http://newcatalog.library.cornell.edu/catalog/1060665 http://newcatalog.library.cornell.edu/catalog/557149
+WARNING:root:histogram: 28 138
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3485 -> http://newcatalog.library.cornell.edu/catalog/1416031 http://newcatalog.library.cornell.edu/catalog/1426407
+WARNING:root:histogram: 29 132
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3514 -> http://newcatalog.library.cornell.edu/catalog/5327135 http://newcatalog.library.cornell.edu/catalog/3043819
+WARNING:root:histogram: 30 120
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3240 -> http://newcatalog.library.cornell.edu/catalog/2231175 http://newcatalog.library.cornell.edu/catalog/7545418
+WARNING:root:histogram: 31 100
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/32296 -> http://newcatalog.library.cornell.edu/catalog/3772848 http://newcatalog.library.cornell.edu/catalog/5317139
+WARNING:root:histogram: 32 83
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/8357 -> http://newcatalog.library.cornell.edu/catalog/3588030 http://newcatalog.library.cornell.edu/catalog/3588030
+WARNING:root:histogram: 33 84
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/114655173 -> http://newcatalog.library.cornell.edu/catalog/3499749 http://newcatalog.library.cornell.edu/catalog/791675
+WARNING:root:histogram: 34 70
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3478 -> http://newcatalog.library.cornell.edu/catalog/1426482 http://newcatalog.library.cornell.edu/catalog/1965902
+WARNING:root:histogram: 35 58
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/58099 -> http://newcatalog.library.cornell.edu/catalog/5299664 http://newcatalog.library.cornell.edu/catalog/5325117
+WARNING:root:histogram: 36 63
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3489 -> http://newcatalog.library.cornell.edu/catalog/2895756 http://newcatalog.library.cornell.edu/catalog/1669493
+WARNING:root:histogram: 37 46
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/33680 -> http://newcatalog.library.cornell.edu/catalog/4728355 http://newcatalog.library.cornell.edu/catalog/4728355
+WARNING:root:histogram: 38 46
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3407 -> http://newcatalog.library.cornell.edu/catalog/8360159 http://newcatalog.library.cornell.edu/catalog/1319834
+WARNING:root:histogram: 39 51
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/13179 -> http://newcatalog.library.cornell.edu/catalog/504082 http://newcatalog.library.cornell.edu/catalog/1388709
+WARNING:root:histogram: 40 43
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/405810 -> http://newcatalog.library.cornell.edu/catalog/4984788 http://newcatalog.library.cornell.edu/catalog/3907662
+WARNING:root:histogram: 41 35
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/87570 -> http://newcatalog.library.cornell.edu/catalog/1446261 http://newcatalog.library.cornell.edu/catalog/1446261
+WARNING:root:histogram: 42 30
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3180 -> http://newcatalog.library.cornell.edu/catalog/2424116 http://newcatalog.library.cornell.edu/catalog/2424116
+WARNING:root:histogram: 43 33
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/6132 -> http://newcatalog.library.cornell.edu/catalog/2919499 http://newcatalog.library.cornell.edu/catalog/222175
+WARNING:root:histogram: 44 21
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1023436 -> http://newcatalog.library.cornell.edu/catalog/5222913 http://newcatalog.library.cornell.edu/catalog/5189658
+WARNING:root:histogram: 45 31
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/30529 -> http://newcatalog.library.cornell.edu/catalog/4003687 http://newcatalog.library.cornell.edu/catalog/3840847
+WARNING:root:histogram: 46 30
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3535 -> http://newcatalog.library.cornell.edu/catalog/7545416 http://newcatalog.library.cornell.edu/catalog/8386633
+WARNING:root:histogram: 47 26
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3479 -> http://newcatalog.library.cornell.edu/catalog/879271 http://newcatalog.library.cornell.edu/catalog/1426459
+WARNING:root:histogram: 48 29
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/22627 -> http://newcatalog.library.cornell.edu/catalog/3313551 http://newcatalog.library.cornell.edu/catalog/7264116
+WARNING:root:histogram: 49 37
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/21371 -> http://newcatalog.library.cornell.edu/catalog/2919934 http://newcatalog.library.cornell.edu/catalog/2920325
+WARNING:root:histogram: 50 26
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/80042 -> http://newcatalog.library.cornell.edu/catalog/3595681 http://newcatalog.library.cornell.edu/catalog/3595606
+WARNING:root:histogram: 51 20
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3277 -> http://newcatalog.library.cornell.edu/catalog/1712037 http://newcatalog.library.cornell.edu/catalog/1088693
+WARNING:root:histogram: 52 21
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3608 -> http://newcatalog.library.cornell.edu/catalog/2247989 http://newcatalog.library.cornell.edu/catalog/910582
+WARNING:root:histogram: 53 25
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/327253 -> http://newcatalog.library.cornell.edu/catalog/1445702 http://newcatalog.library.cornell.edu/catalog/1377041
+WARNING:root:histogram: 54 24
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1110126287 -> http://newcatalog.library.cornell.edu/catalog/5226657 http://newcatalog.library.cornell.edu/catalog/5261048
+WARNING:root:histogram: 55 14
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1727 -> http://newcatalog.library.cornell.edu/catalog/1962943 http://newcatalog.library.cornell.edu/catalog/8386590
+WARNING:root:histogram: 56 15
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/4965 -> http://newcatalog.library.cornell.edu/catalog/3977666 http://newcatalog.library.cornell.edu/catalog/7293146
+WARNING:root:histogram: 57 10
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/42956 -> http://newcatalog.library.cornell.edu/catalog/1376036 http://newcatalog.library.cornell.edu/catalog/960391
+WARNING:root:histogram: 58 13
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/25204 -> http://newcatalog.library.cornell.edu/catalog/7264590 http://newcatalog.library.cornell.edu/catalog/983657
+WARNING:root:histogram: 59 15
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/503387141 -> http://newcatalog.library.cornell.edu/catalog/5320648 http://newcatalog.library.cornell.edu/catalog/5201182
+WARNING:root:histogram: 60 10
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3503 -> http://newcatalog.library.cornell.edu/catalog/1422764 http://newcatalog.library.cornell.edu/catalog/1422769
+WARNING:root:histogram: 61 13
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/188837 -> http://newcatalog.library.cornell.edu/catalog/5332911 http://newcatalog.library.cornell.edu/catalog/5595088
+WARNING:root:histogram: 62 7
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/377949 -> http://newcatalog.library.cornell.edu/catalog/1837 http://newcatalog.library.cornell.edu/catalog/1388317
+WARNING:root:histogram: 63 12
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/112767 -> http://newcatalog.library.cornell.edu/catalog/3248741 http://newcatalog.library.cornell.edu/catalog/3104383
+WARNING:root:histogram: 64 6
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/434784 -> http://newcatalog.library.cornell.edu/catalog/5218883 http://newcatalog.library.cornell.edu/catalog/5218883
+WARNING:root:histogram: 65 8
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/129298 -> http://newcatalog.library.cornell.edu/catalog/5198207 http://newcatalog.library.cornell.edu/catalog/5329337
+WARNING:root:histogram: 66 7
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/134468715 -> http://newcatalog.library.cornell.edu/catalog/1060540 http://newcatalog.library.cornell.edu/catalog/1724415
+WARNING:root:histogram: 67 7
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1760087 -> http://newcatalog.library.cornell.edu/catalog/3868 http://newcatalog.library.cornell.edu/catalog/5638455
+WARNING:root:histogram: 68 9
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/352404852 -> http://newcatalog.library.cornell.edu/catalog/5198717 http://newcatalog.library.cornell.edu/catalog/3422095
+WARNING:root:histogram: 69 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1398815 -> http://newcatalog.library.cornell.edu/catalog/3400575 http://newcatalog.library.cornell.edu/catalog/5559085
+WARNING:root:histogram: 70 13
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/167033 -> http://newcatalog.library.cornell.edu/catalog/5314012 http://newcatalog.library.cornell.edu/catalog/5283424
+WARNING:root:histogram: 71 9
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/909281 -> http://newcatalog.library.cornell.edu/catalog/3657569 http://newcatalog.library.cornell.edu/catalog/3657569
+WARNING:root:histogram: 72 10
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1362330 -> http://newcatalog.library.cornell.edu/catalog/5275275 http://newcatalog.library.cornell.edu/catalog/5275275
+WARNING:root:histogram: 73 5
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1511297 -> http://newcatalog.library.cornell.edu/catalog/3426326 http://newcatalog.library.cornell.edu/catalog/5251466
+WARNING:root:histogram: 74 6
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/414424 -> http://newcatalog.library.cornell.edu/catalog/5276592 http://newcatalog.library.cornell.edu/catalog/5276822
+WARNING:root:histogram: 75 9
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1407189 -> http://newcatalog.library.cornell.edu/catalog/5265777 http://newcatalog.library.cornell.edu/catalog/5235430
+WARNING:root:histogram: 76 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/860658 -> http://newcatalog.library.cornell.edu/catalog/5306770 http://newcatalog.library.cornell.edu/catalog/5309925
+WARNING:root:histogram: 77 5
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/339791 -> http://newcatalog.library.cornell.edu/catalog/1514799 http://newcatalog.library.cornell.edu/catalog/2899276
+WARNING:root:histogram: 78 10
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/395796 -> http://newcatalog.library.cornell.edu/catalog/8233858 http://newcatalog.library.cornell.edu/catalog/1445766
+WARNING:root:histogram: 79 6
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/647807 -> http://newcatalog.library.cornell.edu/catalog/5203342 http://newcatalog.library.cornell.edu/catalog/5261762
+WARNING:root:histogram: 80 6
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/321679 -> http://newcatalog.library.cornell.edu/catalog/8413792 http://newcatalog.library.cornell.edu/catalog/1705736
+WARNING:root:histogram: 81 8
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/489875 -> http://newcatalog.library.cornell.edu/catalog/5272363 http://newcatalog.library.cornell.edu/catalog/5311551
+WARNING:root:histogram: 82 5
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/323398 -> http://newcatalog.library.cornell.edu/catalog/5294408 http://newcatalog.library.cornell.edu/catalog/5261594
+WARNING:root:histogram: 83 9
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/4687 -> http://newcatalog.library.cornell.edu/catalog/1093615 http://newcatalog.library.cornell.edu/catalog/709422
+WARNING:root:histogram: 84 5
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/739838 -> http://newcatalog.library.cornell.edu/catalog/5575701 http://newcatalog.library.cornell.edu/catalog/5594413
+WARNING:root:histogram: 85 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1100156 -> http://newcatalog.library.cornell.edu/catalog/5327147 http://newcatalog.library.cornell.edu/catalog/5582339
+WARNING:root:histogram: 86 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/146594 -> http://newcatalog.library.cornell.edu/catalog/4204580 http://newcatalog.library.cornell.edu/catalog/5267971
+WARNING:root:histogram: 87 6
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/8104 -> http://newcatalog.library.cornell.edu/catalog/2400589 http://newcatalog.library.cornell.edu/catalog/2400555
+WARNING:root:histogram: 88 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2500611 -> http://newcatalog.library.cornell.edu/catalog/1398058 http://newcatalog.library.cornell.edu/catalog/5329473
+WARNING:root:histogram: 89 4
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/67716855 -> http://newcatalog.library.cornell.edu/catalog/5197274 http://newcatalog.library.cornell.edu/catalog/5204309
+WARNING:root:histogram: 90 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1900303 -> http://newcatalog.library.cornell.edu/catalog/1399232 http://newcatalog.library.cornell.edu/catalog/5213416
+WARNING:root:histogram: 91 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/4408102 -> http://newcatalog.library.cornell.edu/catalog/4974040 http://newcatalog.library.cornell.edu/catalog/5214275
+WARNING:root:histogram: 92 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/4420732 -> http://newcatalog.library.cornell.edu/catalog/5241322 http://newcatalog.library.cornell.edu/catalog/5319665
+WARNING:root:histogram: 93 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/45427 -> http://newcatalog.library.cornell.edu/catalog/5274203 http://newcatalog.library.cornell.edu/catalog/4206463
+WARNING:root:histogram: 94 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/380651 -> http://newcatalog.library.cornell.edu/catalog/5284181 http://newcatalog.library.cornell.edu/catalog/5284657
+WARNING:root:histogram: 95 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2471755 -> http://newcatalog.library.cornell.edu/catalog/5330424 http://newcatalog.library.cornell.edu/catalog/5316679
+WARNING:root:histogram: 96 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1409586 -> http://newcatalog.library.cornell.edu/catalog/1544237 http://newcatalog.library.cornell.edu/catalog/5230393
+WARNING:root:histogram: 97 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3946836 -> http://newcatalog.library.cornell.edu/catalog/5289085 http://newcatalog.library.cornell.edu/catalog/5220975
+WARNING:root:histogram: 98 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1159084 -> http://newcatalog.library.cornell.edu/catalog/5277067 http://newcatalog.library.cornell.edu/catalog/8075925
+WARNING:root:histogram: 99 4
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/415722 -> http://newcatalog.library.cornell.edu/catalog/5319252 http://newcatalog.library.cornell.edu/catalog/5316994
+WARNING:root:histogram: 100 6
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2470830 -> http://newcatalog.library.cornell.edu/catalog/5197724 http://newcatalog.library.cornell.edu/catalog/5333805
+WARNING:root:histogram: 101 5
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/455347 -> http://newcatalog.library.cornell.edu/catalog/5214277 http://newcatalog.library.cornell.edu/catalog/5219906
+WARNING:root:histogram: 102 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/116213759 -> http://newcatalog.library.cornell.edu/catalog/5577900 http://newcatalog.library.cornell.edu/catalog/5558838
+WARNING:root:histogram: 103 4
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/596359 -> http://newcatalog.library.cornell.edu/catalog/5259632 http://newcatalog.library.cornell.edu/catalog/1394079
+WARNING:root:histogram: 104 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1881852115 -> http://newcatalog.library.cornell.edu/catalog/5237672 http://newcatalog.library.cornell.edu/catalog/5237673
+WARNING:root:histogram: 105 4
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/909293045 -> http://newcatalog.library.cornell.edu/catalog/3178869 http://newcatalog.library.cornell.edu/catalog/5254083
+WARNING:root:histogram: 106 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1142467 -> http://newcatalog.library.cornell.edu/catalog/5584687 http://newcatalog.library.cornell.edu/catalog/5584688
+WARNING:root:histogram: 107 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/196797019 -> http://newcatalog.library.cornell.edu/catalog/1376653 http://newcatalog.library.cornell.edu/catalog/1439097
+WARNING:root:histogram: 108 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/67671400 -> http://newcatalog.library.cornell.edu/catalog/5202589 http://newcatalog.library.cornell.edu/catalog/8184617
+WARNING:root:histogram: 109 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1023659 -> http://newcatalog.library.cornell.edu/catalog/5307298 http://newcatalog.library.cornell.edu/catalog/5218632
+WARNING:root:histogram: 110 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/793564 -> http://newcatalog.library.cornell.edu/catalog/5241039 http://newcatalog.library.cornell.edu/catalog/5590137
+WARNING:root:histogram: 111 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/694358 -> http://newcatalog.library.cornell.edu/catalog/5278608 http://newcatalog.library.cornell.edu/catalog/5201235
+WARNING:root:histogram: 112 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2631254 -> http://newcatalog.library.cornell.edu/catalog/5238910 http://newcatalog.library.cornell.edu/catalog/5272038
+WARNING:root:histogram: 113 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2527409 -> http://newcatalog.library.cornell.edu/catalog/6013542 http://newcatalog.library.cornell.edu/catalog/3419459
+WARNING:root:histogram: 114 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1408924 -> http://newcatalog.library.cornell.edu/catalog/5196162 http://newcatalog.library.cornell.edu/catalog/5271783
+WARNING:root:histogram: 115 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/129058 -> http://newcatalog.library.cornell.edu/catalog/1409792 http://newcatalog.library.cornell.edu/catalog/5246483
+WARNING:root:histogram: 118 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/388876783 -> http://newcatalog.library.cornell.edu/catalog/3417600 http://newcatalog.library.cornell.edu/catalog/5586917
+WARNING:root:histogram: 119 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/817112 -> http://newcatalog.library.cornell.edu/catalog/8149548 http://newcatalog.library.cornell.edu/catalog/5320790
+WARNING:root:histogram: 120 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2470000 -> http://newcatalog.library.cornell.edu/catalog/7193734 http://newcatalog.library.cornell.edu/catalog/5221199
+WARNING:root:histogram: 121 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/434787 -> http://newcatalog.library.cornell.edu/catalog/1413753 http://newcatalog.library.cornell.edu/catalog/489531
+WARNING:root:histogram: 122 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/346769 -> http://newcatalog.library.cornell.edu/catalog/6776736 http://newcatalog.library.cornell.edu/catalog/5285107
+WARNING:root:histogram: 123 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/711234 -> http://newcatalog.library.cornell.edu/catalog/5194196 http://newcatalog.library.cornell.edu/catalog/5194196
+WARNING:root:histogram: 126 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/792855112 -> http://newcatalog.library.cornell.edu/catalog/5256128 http://newcatalog.library.cornell.edu/catalog/5265114
+WARNING:root:histogram: 127 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/686546159 -> http://newcatalog.library.cornell.edu/catalog/5584390 http://newcatalog.library.cornell.edu/catalog/1411649
+WARNING:root:histogram: 128 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3017089 -> http://newcatalog.library.cornell.edu/catalog/5558910 http://newcatalog.library.cornell.edu/catalog/6013452
+WARNING:root:histogram: 130 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1331229 -> http://newcatalog.library.cornell.edu/catalog/5327154 http://newcatalog.library.cornell.edu/catalog/5326654
+WARNING:root:histogram: 131 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2834698 -> http://newcatalog.library.cornell.edu/catalog/5213707 http://newcatalog.library.cornell.edu/catalog/5328330
+WARNING:root:histogram: 133 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/5314554 -> http://newcatalog.library.cornell.edu/catalog/5215172 http://newcatalog.library.cornell.edu/catalog/5234125
+WARNING:root:histogram: 134 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1104470561 -> http://newcatalog.library.cornell.edu/catalog/5235832 http://newcatalog.library.cornell.edu/catalog/5272082
+WARNING:root:histogram: 136 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1492141 -> http://newcatalog.library.cornell.edu/catalog/3439087 http://newcatalog.library.cornell.edu/catalog/3397015
+WARNING:root:histogram: 138 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/910678 -> http://newcatalog.library.cornell.edu/catalog/3404842 http://newcatalog.library.cornell.edu/catalog/5304886
+WARNING:root:histogram: 139 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1638452 -> http://newcatalog.library.cornell.edu/catalog/129186 http://newcatalog.library.cornell.edu/catalog/5293926
+WARNING:root:histogram: 141 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/459705 -> http://newcatalog.library.cornell.edu/catalog/904252 http://newcatalog.library.cornell.edu/catalog/5213372
+WARNING:root:histogram: 144 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/203320071 -> http://newcatalog.library.cornell.edu/catalog/5215065 http://newcatalog.library.cornell.edu/catalog/5215066
+WARNING:root:histogram: 145 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/500224752 -> http://newcatalog.library.cornell.edu/catalog/1358986 http://newcatalog.library.cornell.edu/catalog/1266854
+WARNING:root:histogram: 147 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/805294 -> http://newcatalog.library.cornell.edu/catalog/5188025 http://newcatalog.library.cornell.edu/catalog/5243608
+WARNING:root:histogram: 148 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1772259 -> http://newcatalog.library.cornell.edu/catalog/3405251 http://newcatalog.library.cornell.edu/catalog/5191596
+WARNING:root:histogram: 149 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1979509 -> http://newcatalog.library.cornell.edu/catalog/7927011 http://newcatalog.library.cornell.edu/catalog/1726104
+WARNING:root:histogram: 150 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/11949758 -> http://newcatalog.library.cornell.edu/catalog/3487916 http://newcatalog.library.cornell.edu/catalog/4183730
+WARNING:root:histogram: 156 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1276170 -> http://newcatalog.library.cornell.edu/catalog/5561648 http://newcatalog.library.cornell.edu/catalog/5561649
+WARNING:root:histogram: 157 3
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/129234 -> http://newcatalog.library.cornell.edu/catalog/5330131 http://newcatalog.library.cornell.edu/catalog/1629947
+WARNING:root:histogram: 158 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/454885 -> http://newcatalog.library.cornell.edu/catalog/542734 http://newcatalog.library.cornell.edu/catalog/5218650
+WARNING:root:histogram: 161 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/49164030 -> http://newcatalog.library.cornell.edu/catalog/5328943 http://newcatalog.library.cornell.edu/catalog/5328944
+WARNING:root:histogram: 163 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/14946504 -> http://newcatalog.library.cornell.edu/catalog/5220695 http://newcatalog.library.cornell.edu/catalog/6013816
+WARNING:root:histogram: 164 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1862324621 -> http://newcatalog.library.cornell.edu/catalog/1359709 http://newcatalog.library.cornell.edu/catalog/1326191
+WARNING:root:histogram: 169 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/102890850 -> http://newcatalog.library.cornell.edu/catalog/5239011 http://newcatalog.library.cornell.edu/catalog/6013794
+WARNING:root:histogram: 174 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/711585 -> http://newcatalog.library.cornell.edu/catalog/5594546 http://newcatalog.library.cornell.edu/catalog/5594539
+WARNING:root:histogram: 178 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/133769830 -> http://newcatalog.library.cornell.edu/catalog/8200787 http://newcatalog.library.cornell.edu/catalog/8203452
+WARNING:root:histogram: 180 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3025508 -> http://newcatalog.library.cornell.edu/catalog/5752542 http://newcatalog.library.cornell.edu/catalog/5752542
+WARNING:root:histogram: 181 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/53076 -> http://newcatalog.library.cornell.edu/catalog/5281339 http://newcatalog.library.cornell.edu/catalog/5216144
+WARNING:root:histogram: 184 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3881 -> http://newcatalog.library.cornell.edu/catalog/5187103 http://newcatalog.library.cornell.edu/catalog/2918679
+WARNING:root:histogram: 188 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/3415686 -> http://newcatalog.library.cornell.edu/catalog/5235819 http://newcatalog.library.cornell.edu/catalog/5258000
+WARNING:root:histogram: 189 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/509921049 -> http://newcatalog.library.cornell.edu/catalog/5231538 http://newcatalog.library.cornell.edu/catalog/3413009
+WARNING:root:histogram: 194 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/6911860 -> http://newcatalog.library.cornell.edu/catalog/5589974 http://newcatalog.library.cornell.edu/catalog/5319985
+WARNING:root:histogram: 195 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1152023263 -> http://newcatalog.library.cornell.edu/catalog/4212942 http://newcatalog.library.cornell.edu/catalog/5577842
+WARNING:root:histogram: 196 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/615580 -> http://newcatalog.library.cornell.edu/catalog/3202830 http://newcatalog.library.cornell.edu/catalog/17351
+WARNING:root:histogram: 203 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/12526511 -> http://newcatalog.library.cornell.edu/catalog/8115805 http://newcatalog.library.cornell.edu/catalog/8113061
+WARNING:root:histogram: 214 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/114791 -> http://newcatalog.library.cornell.edu/catalog/3220692 http://newcatalog.library.cornell.edu/catalog/5652530
+WARNING:root:histogram: 227 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/8368996 -> http://newcatalog.library.cornell.edu/catalog/5213517 http://newcatalog.library.cornell.edu/catalog/3404024
+WARNING:root:histogram: 232 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/49066516 -> http://newcatalog.library.cornell.edu/catalog/5578665 http://newcatalog.library.cornell.edu/catalog/1394099
+WARNING:root:histogram: 234 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2202494 -> http://newcatalog.library.cornell.edu/catalog/5317057 http://newcatalog.library.cornell.edu/catalog/5289388
+WARNING:root:histogram: 247 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1011484946 -> http://newcatalog.library.cornell.edu/catalog/4212835 http://newcatalog.library.cornell.edu/catalog/5577870
+WARNING:root:histogram: 249 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/491296 -> http://newcatalog.library.cornell.edu/catalog/1400020 http://newcatalog.library.cornell.edu/catalog/5235973
+WARNING:root:histogram: 252 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/404520 -> http://newcatalog.library.cornell.edu/catalog/2364910 http://newcatalog.library.cornell.edu/catalog/5212409
+WARNING:root:histogram: 254 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/318642 -> http://newcatalog.library.cornell.edu/catalog/3413652 http://newcatalog.library.cornell.edu/catalog/5575664
+WARNING:root:histogram: 262 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/327398 -> http://newcatalog.library.cornell.edu/catalog/5582354 http://newcatalog.library.cornell.edu/catalog/1396372
+WARNING:root:histogram: 287 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/32192 -> http://newcatalog.library.cornell.edu/catalog/7857291 http://newcatalog.library.cornell.edu/catalog/3266516
+WARNING:root:histogram: 304 2
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/10093765 -> http://newcatalog.library.cornell.edu/catalog/8128361 http://newcatalog.library.cornell.edu/catalog/5215201
+WARNING:root:histogram: 305 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/53218 -> http://newcatalog.library.cornell.edu/catalog/4201314 http://newcatalog.library.cornell.edu/catalog/5234988
+WARNING:root:histogram: 346 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/8882390 -> http://newcatalog.library.cornell.edu/catalog/3189023 http://newcatalog.library.cornell.edu/catalog/5275896
+WARNING:root:histogram: 371 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1870543001 -> http://newcatalog.library.cornell.edu/catalog/5279321 http://newcatalog.library.cornell.edu/catalog/5200374
+WARNING:root:histogram: 388 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/1153314758 -> http://newcatalog.library.cornell.edu/catalog/3246453 http://newcatalog.library.cornell.edu/catalog/3105511
+WARNING:root:histogram: 468 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/66272728 -> http://newcatalog.library.cornell.edu/catalog/3107124 http://newcatalog.library.cornell.edu/catalog/3107125
+WARNING:root:histogram: 631 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/2770653 -> http://newcatalog.library.cornell.edu/catalog/3105605 http://newcatalog.library.cornell.edu/catalog/3228289
+WARNING:root:histogram: 643 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/327434 -> http://newcatalog.library.cornell.edu/catalog/1450592 http://newcatalog.library.cornell.edu/catalog/1257281
+WARNING:root:histogram: 677 1
+WARNING:root:histogram_eg: http://worldcat.org/entity/work/id/10065342 -> http://newcatalog.library.cornell.edu/catalog/8177340 http://newcatalog.library.cornell.edu/catalog/8177605
+WARNING:root:FINISHED at 2014-09-29 11:58:13.574282
