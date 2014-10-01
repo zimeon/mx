@@ -6,3 +6,6 @@ mx_grep_oclc.log
 
 #Our data dir
 bib.xml.full
+
+#Big OCLC data file
+oclcnum_workid_concordance.txt.gz
