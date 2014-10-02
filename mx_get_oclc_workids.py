@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 #
-# Look for OCLC Work ids for our bibids base on oclcnum data
+# Look for OCLC Work ids that correspond with bibids based on 
+# oclcnum data previously extracted and OCLC's concordance
+# file of oclcnums to oclc work ids.
 #
 import sys
 import gzip
@@ -50,7 +52,7 @@ class bibid_oclcnums(object):
                 else:
                     if (len(d)>2):
                         logging.info("[%d] ignoring extra %d elements for bibid %s, line is '%s'" % (n,(len(d)-2),d[0],line))
-                    bibid = int(d[0])
+                    bibid = d[0] #not always integer
                     oclcnum = int(d[1])
                     self.bibids[oclcnum]=bibid
         fh.close()
@@ -68,7 +70,7 @@ class bibid_oclcnums(object):
         else:
             # Write out matches as we find them to avoid
             # building everything in memory
-            self.ofh.write("%d %d\n" % (workid,bibid))
+            self.ofh.write("%d %s\n" % (workid,bibid))
 
     def write_works_data(self,file):
         """Write out OCLC workid to bibid mappings
