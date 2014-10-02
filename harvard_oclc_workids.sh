@@ -32,13 +32,14 @@
 # and then group by workid
 #
 # 1. extract 035$a refs to OCLC nums
+# (don't bother to record dupes)
 rm -f harvard/bibid_to_oclcnums.log harvard/bibid_to_oclcnums_dupes.log
-./mx_grep_oclc.py -v --logfile harvard/bibid_to_oclcnums.log --dupeslog harvard/bibid_to_oclcnums_dupes.log harvard_marc21/ab*.gz | gzip -c > harvard/bibid_to_oclcnums.dat.gz
+./mx_grep_oclc.py -v --logfile harvard/bibid_to_oclcnums.log harvard_marc21/ab*.gz | gzip -c > harvard/bibid_to_oclcnums.dat.gz
 #
 # 2. match up with OCLC concordance to get work ids
-#rm -f harvard/workid_bibid_pairs.log harvard/workid_bibid_pair_dupes.log
-#./mx_get_oclc_workids.py -v --logfile harvard/workid_bibid_pairs.log --dupeslog harvard/workid_bibid_pair_dupes.log harvard/bibid_to_oclcnums.dat.gz oclcnum_workid_concordance.txt.gz harvard/workid_bibid_pairs.dat.gz
+rm -f harvard/workid_bibid_pairs.log harvard/workid_bibid_pair_dupes.log
+./mx_get_oclc_workids.py -v --logfile harvard/workid_bibid_pairs.log --dupeslog harvard/workid_bibid_pair_dupes.log harvard/bibid_to_oclcnums.dat.gz oclcnum_workid_concordance.txt.gz harvard/workid_bibid_pairs.dat.gz
 #
 # 3. got though workid-bibid pairs to group by workid and get some stats
-#rm -f harvard/workid_bibids.log 
-#./mx_analyze_workids.py --logfile harvard/workid_bibids.log harvard/workid_bibid_pairs.dat.gz harvard/workid_bibids.dat.gz
+rm -f harvard/workid_bibids.log 
+./mx_analyze_workids.py --logfile harvard/workid_bibids.log --bibid-fmt 'http://wordsworth.lib.harvard.edu/F?func=direct&local_base=HVD01&doc_number=%s' harvard/workid_bibid_pairs.dat.gz harvard/workid_bibids.dat.gz
