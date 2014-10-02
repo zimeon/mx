@@ -4,8 +4,9 @@ __pycache__
 #Log files
 mx_grep_oclc.log
 
-#Our data dir
+#Data dirs not in git
 bib.xml.full
+harvard_marc21
 
 #Big OCLC data file
 oclcnum_workid_concordance.txt.gz
