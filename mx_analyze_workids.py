@@ -12,14 +12,18 @@ import optparse
 import logging
 import datetime
 
-WORKID_PREFIX = "http://worldcat.org/entity/work/id/"
-BIBID_PREFIX = "http://newcatalog.library.cornell.edu/catalog/"
+WORKID_FMT = "http://worldcat.org/entity/work/id/%d"
+CORNELL_BIBID_FMT = "http://newcatalog.library.cornell.edu/catalog/%s"
+#http://wordsworth.lib.harvard.edu/F?func=direct&local_base=HVD01&doc_number=012193361
+#http://beta.hollis.harvard.edu/primo_library/libweb/action/display.do?doc=HVD_ALEPH012193361
 
 class workids(object):
 
     def __init__(self,file=None):
         self.workids={}
         self.bibids={}
+        self.workid_fmt=WORKID_FMT
+        self.bibid_fmt='%s'
         # Read data if specified
         if (file):
             self.read(file)
@@ -48,7 +52,7 @@ class workids(object):
                 # sanity check
                 try:
                     workid = int(d[0])
-                    bibid = int(d[1])
+                    bibid = d[1]
                 except Exception as e:
                     logging.warning("[%d] bad line '%s', ignored" % (n,line))
                     continue
@@ -62,7 +66,7 @@ class workids(object):
                     # case of same bibid with different workids
                     if (workid not in self.bibids[bibid]):
                         self.bibids[bibid].append(workid)
-                        logging.warning("Dupe: bibid %d attached to multiple workids [%s]" % (bibid,",".join([str(x) for x in self.bibids[bibid]])))
+                        logging.warning("Dupe: bibid %s attached to multiple workids [%s]" % (bibid,",".join([str(x) for x in self.bibids[bibid]])))
                 else:
                     self.bibids[bibid]=[workid]
         fh.close()
@@ -76,8 +80,8 @@ class workids(object):
         """
         fh = gzip.open(file,'w')
         fh.write("#workid bibids\n")
-        fh.write("#prefix workid with %s to get URI\n" % (WORKID_PREFIX))
-        fh.write("#prefix bibids with %s to get URI\n" % (BIBID_PREFIX))
+        fh.write("#workid fmt string is %s to get URI\n" % (self.workid_fmt))
+        fh.write("#prefix fmt string is  %s to get URI\n" % (self.bibid_fmt))
         n = 0
         for workid in sorted(self.workids.keys(),key=int):
             n += 1
@@ -99,8 +103,8 @@ class workids(object):
             else:
                 counts[n] = 1
                 # Add first case as example, add first 3 (at most) bibid links
-                biblinks = ["%s%d" % (BIBID_PREFIX,x) for x in self.workids[workid][0:2]]
-                example[n] = "%s%d -> %s" % (WORKID_PREFIX,workid,' '.join(biblinks)) 
+                biblinks = [self.bibid_fmt % (x) for x in self.workids[workid][0:3]]
+                example[n] = "%s -> %s" % ( (self.workid_fmt % (workid)),' '.join(biblinks)) 
         # output histogram data
         logging.warning("histogram: #num_bibids workids_with_num_bibids (example)")
         for n in sorted(counts):
@@ -115,7 +119,9 @@ p = optparse.OptionParser(description='Combine and analyze workid to bibid pairs
 p.add_option('--logfile', action='store', default=LOGFILE,
              help="Log file name (default %s)" % (LOGFILE))
 p.add_option('--verbose', '-v', action='store_true',
-              help="verbose, show additional informational messages")
+             help="verbose, show additional informational messages")
+p.add_option('--bibid-fmt',action='store',default=CORNELL_BIBID_FMT,
+             help="format string to create URI from bibid")
 (opt, args) = p.parse_args()
 
 if (len(args)!=2):
@@ -129,6 +135,7 @@ logging.warning("STARTED at %s" % (datetime.datetime.now()))
 
 # Read bibid--oclcnum data into memory
 w = workids(workid_bibid_pairs)
+w.bibid_fmt=opt.bibid_fmt
 logging.info("Have %d workids, %d bibids" % (len(w.workids),len(w.bibids)))
 
 # Write out combined works data and stats
