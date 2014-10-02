@@ -115,9 +115,9 @@ class mx_grepper:
                         else:
                             self.fields_bad += 1
                             logging.warning("[%s] Ignored bad %s$a OCLC entry: '%s'",self.bibid,field,entry)
-            if (len(oclcnums)>1):
-                self.records_multi += 1
-                logging.warning("[%s] Multi: Have %d OCLC nums: %s",self.bibid,len(oclcnums)," ".join([str(x) for x in oclcnums]))
+        if (len(oclcnums)>1):
+            self.records_multi += 1
+            logging.warning("[%s] Multi: Have %d OCLC nums: %s",self.bibid,len(oclcnums)," ".join([str(x) for x in oclcnums]))
         return sorted(oclcnums)
 
 # Options and arguments
@@ -156,43 +156,49 @@ print "#bibid oclcnum[s]"
 for arg in args:
     fh = None
     files += 1
-    # Is this MARCXML or MARC21? If option not specified then 
-    # guess from file name
-    is_xml = ( True if opt.xml else ( False if opt.marc21 else None ) )
-    if (is_xml is None):
-        if (re.search(r'xml(\.gz)?$',arg)):
-            is_xml = True
-        elif (re.search(r'(marc21|marc|mrc)(\.gz)?$',arg)):
-            is_xml = False
+    try:
+        # Is this MARCXML or MARC21? If option not specified then 
+        # guess from file name
+        is_xml = ( True if opt.xml else ( False if opt.marc21 else None ) )
+        if (is_xml is None):
+            if (re.search(r'xml(\.gz)?$',arg)):
+                is_xml = True
+            elif (re.search(r'(marc21|marc|mrc)(\.gz)?$',arg)):
+                is_xml = False
+            else:
+                logging.warning("Cannot tell file type, defaulting to MARCXML");
+                is_xml = true
+        if (is_xml):
+            if (re.search(r'\.gz$',arg)):
+                logging.warning("#Reading %s as gzipped MARCXML" % (arg))
+                if (opt.verbose):
+                    print "#Reading %s as gzipped MARCXML" % (arg)
+                fh = gzip.open(arg,'rb')
+            else:
+                logging.warning("#Reading %s as MARCXML" % (arg))
+                if (opt.verbose):
+                    print "#Reading %s as MARCXML" % (arg)
+                fh = open(arg,'rb')
+            reader = pymarc.MARCReader(fh)
+            pymarc.map_xml(mg.grep, fh)
         else:
-            logging.warning("Cannot tell file type, defaulting to MARCXML");
-            is_xml = true
-    if (is_xml):
-        if (re.search(r'\.gz$',arg)):
-            logging.warning("#Reading %s as gzipped MARCXML" % (arg))
-            if (opt.verbose):
-                print "#Reading %s as gzipped MARCXML" % (arg)
-            fh = gzip.open(arg,'rb')
-        else:
-            logging.warning("#Reading %s as MARCXML" % (arg))
-            if (opt.verbose):
-                print "#Reading %s as MARCXML" % (arg)
-            fh = open(arg,'rb')
-        reader = pymarc.MARCReader(fh)
-        pymarc.map_xml(mg.grep, fh)
-    else:
-        if (re.search(r'\.gz$',arg)):
-            logging.warning("#Reading %s as gzipped MARC21" % (arg))
-            if (opt.verbose):
-                print "#Reading %s as gzipped MARC21" % (arg)
-            fh = gzip.open(arg,'rb')
-        else:
-            logging.warning("#Reading %s as MARC21" % (arg))
-            if (opt.verbose):
-                print "#Reading %s as MARC21" % (arg)
-            fh = open(arg,'rb')
-        reader = pymarc.MARCReader(fh,to_unicode=True)
-        pymarc.map_records(mg.grep, fh)
+            if (re.search(r'\.gz$',arg)):
+                logging.warning("#Reading %s as gzipped MARC21" % (arg))
+                if (opt.verbose):
+                    print "#Reading %s as gzipped MARC21" % (arg)
+                fh = gzip.open(arg,'rb')
+            else:
+                logging.warning("#Reading %s as MARC21" % (arg))
+                if (opt.verbose):
+                    print "#Reading %s as MARC21" % (arg)
+                fh = open(arg,'rb')
+            reader = pymarc.MARCReader(fh,to_unicode=True)
+            pymarc.map_records(mg.grep, fh)
+    except Exception as e:
+        # Catch any error, log it and move on to the next file.
+        # At least this way we get to look at every file even if
+        # only parts of some are examined
+        logging.warning("ERROR READING FILE %s, SKIPPING TO NEXT: %s" % (arg,str(e)))
 if (len(args)>1):
     print "# %d files" % files
 print "# %d records seen, %d matched, %d multi-valued" % (mg.records_seen,mg.records_matched,mg.records_multi)
