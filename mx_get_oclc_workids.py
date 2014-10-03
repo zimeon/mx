@@ -13,9 +13,10 @@ import datetime
 
 class bibid_oclcnums(object):
 
-    def __init__(self,file=None,output_file=None,store_works=False,dupeslog=None):
+    def __init__(self,file=None,output_file=None,store_works=False,dupeslog=None,first_oclcnum_only=False):
         # Options
         self.dupeslog=dupeslog
+        self.first_oclcnum_only=first_oclcnum_only
         #
         self.bibids={}
         self.store_works=store_works
@@ -50,16 +51,35 @@ class bibid_oclcnums(object):
                 if (len(d)<2):
                     logging.info("[%d] fewer than 2 elements, ignoring" % (n))
                 else:
-                    if (len(d)>2):
-                        logging.info("[%d] ignoring extra %d elements for bibid %s, line is '%s'" % (n,(len(d)-2),d[0],line))
                     bibid = d[0] #not always integer
-                    oclcnum = int(d[1])
-                    self.bibids[oclcnum]=bibid
+                    if (len(d)>2 and self.first_oclcnum_only):
+                        logging.info("[%d] ignoring extra %d elements for bibid %s, line is '%s'" % (n,(len(d)-2),d[0],line))
+                        self.add_oclcnum_to_bibid(int(d[1]),bibid)
+                    else:
+                        for oclcnum in d[1:]:
+                            self.add_oclcnum_to_bibid(int(oclcnum),bibid)
         fh.close()
         logging.warning("read %d lines from %s" % (n,file))
 
+    def add_oclcnum_to_bibid(self,oclcnum,bibid):
+        """Add mapping of oclcnum to bibid
+
+        Deal with the case that a single oclcnum might map to more
+        than one bibid.
+        """
+        if (oclcnum not in self.bibids):
+            self.bibids[oclcnum]=set()
+        self.bibids[oclcnum].add(bibid)
+
     def add_work(self,bibid,workid):
-        """Add record of bibid being example of workid"""
+        """Add record of bibid being example of workid
+
+        If self.store_works is true then build data structure of
+        workid -> bibids.
+
+        Else, simple write out "workid bibid" pair as it is
+        found to avoid using huge memnory.
+        """
         if (self.store_works):
             if (workid in self.works):
                 # Add to list, already have one entry
@@ -91,6 +111,8 @@ class bibid_oclcnums(object):
 LOGFILE = "mx_get_oclc_workids.log"
 p = optparse.OptionParser(description='Find OCLC workids for bibids given bibid-oclcnum and oclcnum-workid data',
                           usage='usage: %prog [bibid_to_oclcnums.gz] [oclc_concordance.gz] [works_out.gz]')
+p.add_option('--first-oclcnum-only', action='store_true',
+             help="Take only the first OCLC number listed for each bibid")
 p.add_option('--logfile', action='store', default=LOGFILE,
              help="Log file name (default %s)" % (LOGFILE))
 p.add_option('--dupeslog', action='store', default=None,
@@ -116,7 +138,7 @@ if (opt.dupeslog):
     dupeslog.warning("#DUPES LOG STARTED at %s" % (datetime.datetime.now()))
 
 # Read bibid--oclcnum data into memory
-bo = bibid_oclcnums(file=bibid_to_oclcnums_file,output_file=output_file,dupeslog=dupeslog)
+bo = bibid_oclcnums(file=bibid_to_oclcnums_file,output_file=output_file,dupeslog=dupeslog, first_oclcnum_only=opt.first_oclcnum_only)
 logging.warning("Have %d bibid to oclcnum mappings" % (len(bo.bibids.keys())))
 
 # Now open concordance and work through it looking for matches
@@ -130,6 +152,7 @@ logging.warning("Have %d bibid to oclcnum mappings" % (len(bo.bibids.keys())))
 #
 # Look for matches in 1st or 2nd columns, get word identifier from
 # 3rd column.
+logging.warning("READING CONCORDANCE at %s" % (datetime.datetime.now()))
 fh = gzip.open(oclc_concordance_file,'r')
 n = 0
 num1_matches = 0
@@ -149,10 +172,12 @@ for line in fh:
         oclcnum2=int(oclcnum2)
         workid=int(workid)
         if (oclcnum1 in bo.bibids):
-            bo.add_work(bo.bibids[oclcnum1],workid)
+            for bibid in bo.bibids[oclcnum1]:
+                bo.add_work(bibid,workid)
             num1_matches += 1
         elif (oclcnum2 in bo.bibids):
-            bo.add_work(bo.bibids[oclcnum2],workid)
+            for bibid in bo.bibids[oclcnum2]:
+                bo.add_work(bibid,workid)
             num2_matches += 1
     except Exception as e:
         logging.warning("[line %d] BAD LINE '%s': %s" % (n,line,str(e)))

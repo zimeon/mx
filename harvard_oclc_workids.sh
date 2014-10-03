@@ -33,8 +33,8 @@
 #
 # 1. extract 035$a refs to OCLC nums
 # (don't bother to record dupes)
-rm -f harvard/bibid_to_oclcnums.log harvard/bibid_to_oclcnums_dupes.log
-./mx_grep_oclc.py -v --logfile harvard/bibid_to_oclcnums.log harvard_marc21/ab*.gz | gzip -c > harvard/bibid_to_oclcnums.dat.gz
+#rm -f harvard/bibid_to_oclcnums.log harvard/bibid_to_oclcnums_dupes.log
+#./mx_grep_oclc.py -v --logfile harvard/bibid_to_oclcnums.log harvard_marc21/ab*.gz | gzip -c > harvard/bibid_to_oclcnums.dat.gz
 #
 # 2. match up with OCLC concordance to get work ids
 rm -f harvard/workid_bibid_pairs.log harvard/workid_bibid_pair_dupes.log
