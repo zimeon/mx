@@ -42,9 +42,9 @@ class bibid_oclcnums(object):
             self.ofh.write("#we expect many duplicate lines due to look up based on 001 and 019 OCLC data\n")
         # Read data if specified
         if (file):
-            self.read(file)
+            self.read_bibid_to_oclcnums(file)
             
-    def read(self,file):
+    def read_bibid_to_oclcnums(self,file):
         """Read in bibid to oclcnums data
 
         Ignores lines starting # and blank lines
@@ -121,10 +121,24 @@ class bibid_oclcnums(object):
         fh.close()
         logging.warning("written %d lines to %s" % (n,file))
 
+    def write_oclccn2oclcwn(self,file):
+        """Write cvs format OCLC number, OCLC work number pairs
+
+        Uses same format at Darren's output for Stanford
+        """
+        fh = gzip.open(file,'w')
+        #fh.write("#oclccn,oclcwns\n")
+        n = 0
+        for pair in sorted(self.oclccn2oclcwn):
+            n += 1
+            fh.write(pair + "\n")
+        fh.close()
+        logging.warning("written %d lines to %s" % (n,file))
+
     def close(self):
         """Close running output file if open"""
         if (self.write_pairs): 
-            self.ofh.close();
+            self.ofh.close()
 
 # Options and arguments
 LOGFILE = "mx_get_oclc_workids.log"
@@ -195,6 +209,9 @@ for line in fh:
         logging.warning("read %d lines from %s...." % (n,oclc_concordance_file))
     line = line.rstrip()
     try:
+        # oclcnum2 is the currently in-use OCLC crontol number and
+        # is the one to record. A match on oclcnum1, which may be
+        # a previously used number, should be recorded with oclcnum2
         (oclcnum1,oclcnum2,workid) = line.split()
         if (workid=='NONE'):
             num_none_workid += 1
@@ -202,23 +219,23 @@ for line in fh:
         oclcnum1=int(oclcnum1)
         oclcnum2=int(oclcnum2)
         workid=int(workid)
-        if (oclcnum1 in bo.bibids):
-            for bibid in bo.bibids[oclcnum1]:
-                bo.add_work(oclcnum1,bibid,workid)
-            num1_matches += 1
-        elif (oclcnum2 in bo.bibids):
+        if (oclcnum2 in bo.bibids):
             for bibid in bo.bibids[oclcnum2]:
                 bo.add_work(oclcnum2,bibid,workid)
             num2_matches += 1
+        elif (oclcnum1 in bo.bibids):
+            for bibid in bo.bibids[oclcnum1]:
+                bo.add_work(oclcnum2,bibid,workid)
+            num1_matches += 1
     except Exception as e:
         logging.warning("[line %d] BAD LINE '%s': %s" % (n,line,str(e)))
 fh.close()
-logging.warning("read %d lines from %s. %d matches in col1, %d in col2" % (n,oclc_concordance_file,num1_matches,num2_matches))
+logging.warning("read %d lines from %s. %d matches in col2, %d in col1" % (n,oclc_concordance_file,num1_matches,num2_matches))
 logging.warning("ignored %d lines that have workid=NONE" % (num_none_workid))
-bo.close()
 
 if (opt.write_workid_bibids is not None):
     bo.write_workid_to_bibid_data(opt.write_workid_bibids)
 if (opt.write_oclcnum_workid_pairs is not None):
-    bo.write_oclcnum_workid_pairs(opt.write_oclcnum_workid_pairs)
+    bo.write_oclccn2oclcwn(opt.write_oclcnum_workid_pairs)
 logging.warning("FINISHED at %s" % (datetime.datetime.now()))
+bo.close()
