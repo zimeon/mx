@@ -81,7 +81,7 @@ class workids(object):
         fh = gzip.open(file,'w')
         fh.write("#workid bibids\n")
         fh.write("#workid fmt string is %s to get URI\n" % (self.workid_fmt))
-        fh.write("#prefix fmt string is  %s to get URI\n" % (self.bibid_fmt))
+        fh.write("#prefix fmt string is %s to get URI\n" % (self.bibid_fmt))
         n = 0
         for workid in sorted(self.workids.keys(),key=int):
             n += 1

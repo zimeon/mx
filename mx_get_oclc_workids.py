@@ -145,11 +145,11 @@ LOGFILE = "mx_get_oclc_workids.log"
 p = optparse.OptionParser(description='Find OCLC workids for bibids given bibid-oclcnum and oclcnum-workid data',
                           usage='usage: %prog [bibid_to_oclcnums.gz] [oclc_concordance.gz]')
 p.add_option('--write-workid-bibids', action='store', default=None,
-             help="Build in-memory data to write workid->bibids mappings to given file.gz")
+             help="Build in-memory data to write workid->bibids to given file.gz")
 p.add_option('--write-oclcnum-workid-pairs', action='store', default=None,
-             help="Build in-memory data to write oclcnum,workid pairs to given file.gz")
+             help="Build in-memory data to write oclcnum->workid pairs to given file.gz")
 p.add_option('--write-pairs', action='store', default=None,
-             help="Write bibid->oclcworkid pairs as oclc data is read (cheap on memory) to given file.gz")
+             help="Write bibid->workid pairs as oclc data is read (cheap on memory) to given file.gz")
 p.add_option('--first-oclcnum-only', action='store_true',
              help="Take only the first OCLC number listed for each bibid")
 p.add_option('--logfile', action='store', default=LOGFILE,
