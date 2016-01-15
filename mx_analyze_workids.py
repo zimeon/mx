@@ -33,6 +33,9 @@ class workids(object):
 
         Ignores lines starting # and blank lines. Converts all values
         to integers.
+
+        Ignore duplicates bibid-workid pairs, flag multiple works for
+        a single bibid.
         """
         fh = gzip.open(file,'r')
         n = 0
@@ -56,10 +59,11 @@ class workids(object):
                 except Exception as e:
                     logging.warning("[%d] bad line '%s', ignored" % (n,line))
                     continue
-                if (workid in self.workids):
-                    self.workids[workid].append(bibid)
-                else:
-                    self.workids[workid]=[bibid]
+                # Avoid adding duplicates of the same workid bibid pair by
+                # use of a set to accumulate the bibids
+                if (workid not in self.workids):
+                    self.workids[workid]=set()
+                self.workids[workid].add(bibid)
                 # Look for dupes
                 if (bibid in self.bibids):
                     # We expect many dupe pairs, look for the special
@@ -103,7 +107,7 @@ class workids(object):
             else:
                 counts[n] = 1
                 # Add first case as example, add first 3 (at most) bibid links
-                biblinks = [self.bibid_fmt % (x) for x in self.workids[workid][0:3]]
+                biblinks = [self.bibid_fmt % (x) for x in sorted(self.workids[workid])[0:3]]
                 example[n] = "%s -> %s" % ( (self.workid_fmt % (workid)),' '.join(biblinks)) 
         # output histogram data
         logging.warning("histogram: #num_bibids workids_with_num_bibids (example)")
