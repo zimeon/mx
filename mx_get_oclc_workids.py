@@ -230,7 +230,7 @@ for line in fh:
     except Exception as e:
         logging.warning("[line %d] BAD LINE '%s': %s" % (n,line,str(e)))
 fh.close()
-logging.warning("read %d lines from %s. %d matches in col2, %d in col1" % (n,oclc_concordance_file,num1_matches,num2_matches))
+logging.warning("read %d lines from %s. %d matches in col2, %d in col1" % (n,oclc_concordance_file,num2_matches,num1_matches))
 logging.warning("ignored %d lines that have workid=NONE" % (num_none_workid))
 
 if (opt.write_workid_bibids is not None):
